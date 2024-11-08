@@ -1,4 +1,4 @@
-# Thinking Machines Final Project
+# NBA Ratings Throughout History
 ### R Coding:
 ```
 install.packages("tidyverse")
