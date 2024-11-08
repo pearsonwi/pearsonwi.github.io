@@ -18,3 +18,4 @@ nbaRatings$Avg = as.numeric(nbaRatings$Avg)
 
 ggplot(nbaRatings, aes(x = Year, y = Avg)) + geom_point() + scale_x_continuous(breaks = seq(min(nbaRatings$Year), max(nbaRatings$Year), by = 10))
 ```
+<img src="main/pic.png" />
