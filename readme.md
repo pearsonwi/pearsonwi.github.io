@@ -11,7 +11,6 @@ library(zoo)
 attendance = game_info %>% filter (!is.na(attendance))
 games = merge(game, attendance, by = "game_id")
 gamesNew = games[!duplicated(games), ]
-str(gamesNew)
 ```
 This code before was so I can see who is playing in these games. Many of these recorded games were between NBA teams and China, and some were games in an old different basketball league called the ABA, or between two past teams that are now defunct. So, I will take only modern NBA teams and their former names to narrow down this data to only the NBA games I want. I will graph `average_attendance` by year across the entire league.
 ```
@@ -26,6 +25,7 @@ average_attendance = fgames %>% mutate(year = format(game_date.x, "%Y")) %>% gro
 
 ggplot(average_attendance, aes(x = as.numeric(year), y = avg_attendance)) + geom_line() + xlab("Year") + ylab("Average League Attendance")
 ```
+<img src="attendance.png" />
 While this may look like the NBA had blown up around 1985 and stayed stagnant since, it is more just becuase stadiums are being sold out, and the size of NBA arenas has increased relatively little since the 1960s. But, this does show that the league was increasing in popularity from 1960-1980, then blowing up in the mid 80s, which was right at the time Michael Jordan was drafted into the league.
 
 I then imported a table from Wikipedia, that shows every NBA finals game and it's rating. This was the best thing I could find that provided me with historical TV viewership data, and surprisingly it is rather difficult to find this type of information on the NBA. Rating is the percentage of US households that watched the game.
@@ -63,7 +63,11 @@ nbaRatings$Year = as.numeric(nbaRatings$Year)
 
 ggplot(yearlyStats, aes(x=Year, y=PTS))+geom_point()+scale_x_continuous(breaks = seq(min(yearlyStats$Year), max(yearlyStats$Year), by = 10))
 ```
+
+<img src="pts.png" />
+
 There is likely way to much code here, and I probably could've done it much more efficiently, but I have this graph and that's all that matters. But, there is no correlation between ratings and points. Average games played by all stars I think will have more correlation. This is been an increasing problem in recent years, and has been said to be influencing this decline.
+
 ```
 avgAllStars = data.frame(
   Year = c(2022, 2018, 2014, 2010, 2006, 2002, 1998, 1994, 1990, 1986, 1982, 1978, 1974, 1970, 1966, 1962),
@@ -89,4 +93,5 @@ ggplot(allStats, aes(x = Year)) +
   scale_x_continuous(limits = c(1974, 2024)) +
   ylab("Ratings") + theme_minimal() + theme(legend.position = "bottom")
 ```
+<img src="ratingsGames.png" />
 This shows this is likely a big reason for TV ratings. So, while this has been harder than I had thought beforehand, I think I have found a large reason for the decline in TV viewership in recent years. But a larger reason is likely due to COVID hurting overall TV viewership of sports, and things like ESPN+ hurting viewership statistics.
